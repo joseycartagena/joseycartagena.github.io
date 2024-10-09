@@ -7,22 +7,23 @@ export function propiedades(arrayPropiedades, contenedor) {
 
         if (contador < 3) {
             let mascotas = (propiedad.pets?
-                `<p class="text-success">
-                    <i class="fas fa-smoking"></i> Permitido fumar
-                </p>`
-                :
-                `<p class="text-danger">
-                    <i class="fas fa-smoking-ban"></i> No se permite fumar
-                </p>`)
-
-            let fumar = (propiedad.smoke? 
-                `<p class="text-success">
+               `<p class="text-success">
                     <i class="fas fa-paw"></i> Mascotas permitidas
                 </p>`
                 :
                 `<p class="text-danger">
                 <i class="fas fa-ban"></i> No se permiten mascotas
                 </p>`)
+
+            let fumar = (propiedad.smoke? 
+
+                `<p class="text-success">
+                <i class="fas fa-smoking"></i> Permitido fumar
+            </p>`
+            :
+            `<p class="text-danger">
+                <i class="fas fa-smoking-ban"></i> No se permite fumar
+            </p>`)
             
             contenidoHTML += `
                 <div class="col-md-4 mb-4">

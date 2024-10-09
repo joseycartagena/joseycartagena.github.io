@@ -5,21 +5,21 @@ export function propiedades(arrayPropiedades, contenedor) {
     for (let propiedad of arrayPropiedades) {
 
         let mascotas = (propiedad.pets?
+           `<p class="text-success">
+                <i class="fas fa-paw"></i> Mascotas permitidas
+            </p>`
+            :
+            `<p class="text-danger">
+            <i class="fas fa-ban"></i> No se permiten mascotas
+            </p>` )
+
+        let fumar = (propiedad.smoke? 
             `<p class="text-success">
                 <i class="fas fa-smoking"></i> Permitido fumar
             </p>`
             :
             `<p class="text-danger">
                 <i class="fas fa-smoking-ban"></i> No se permite fumar
-            </p>`)
-
-        let fumar = (propiedad.smoke? 
-            `<p class="text-success">
-                <i class="fas fa-paw"></i> Mascotas permitidas
-            </p>`
-            :
-            `<p class="text-danger">
-            <i class="fas fa-ban"></i> No se permiten mascotas
             </p>`)
         
         contenidoHTML += `
