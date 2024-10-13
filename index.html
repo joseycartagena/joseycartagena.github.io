@@ -1,91 +1,36 @@
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Desafío - Inmobiliaria</title>
-    <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/estilos.css" />
-    <!-- Bootstrap CDN -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container">
-        <a class="navbar-brand" href="#">Inmobiliaria ADL</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarTogglerDemo02"
-          aria-controls="navbarTogglerDemo02"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <!-- <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li> -->
-            <li class="nav-item">
-              <a class="nav-link" href="./propiedades_venta.html">En venta</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./propiedades_alquiler.html">Alquiler</a>
-            </li>
-          </ul>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <title>Desafío 5 - Todo List</title>
+</head>
+<body>
+    
+    <div class="todo-list">
+
+        <h2>Todo List</h2>
+        <div class="input-group">
+            <input type="text" id="nuevoTarea" placeholder="Nueva tarea">
+            <button id="agregarTarea">Agregar</button>
         </div>
-      </div>
-    </nav>
-    <main class="container-fluid main-section">
-      <h1 class="text-white">Encuentra tu nueva propiedad</h1>
-    </main>
-    <div class="container mt-5">
-      <!-- Propiedades en venta -->
-      <section id="venta">
-        <h2>Propiedades en venta</h2>
-        <div class="row" id="indexVentas"></div>
-        <a href="./propiedades_venta.html" class="btn btn-dark"
-          >Ver todas las propiedades en venta</a
-        >
-      </section>
-      <hr />
-      <!-- Propiedades en alquiler -->
-      <section id="alquiler" class="mb-5">
-        <h2>Propiedades en alquiler</h2>
-        <div class="row" id="indexAlquiler"></div>
-        <a href="./propiedades_alquiler.html" class="btn btn-dark"
-          >Ver todas las propiedades en alquiler</a
-        >
-      </section>
+        <div class="cuentaTareas">
+            <p>Total: <span id="totalTareas">0</span></p>
+            <p>Realizadas: <span id="tareasRealizadas">0</span></p>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tarea</th>
+                    <th>Realizda</th>
+                    <th>Borrar</th>
+                </tr>
+            </thead>
+            <tbody id="listaTareas">
+            </tbody>
+        </table>
     </div>
-    <!-- Font awesome -->
-    <script
-      src="https://kit.fontawesome.com/f5bdbb41e0.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Bootstrap JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-      crossorigin="anonymous"
-    ></script>
-
-    <script type="module">
-      const contenedorVenta = document.querySelector("#indexVentas");
-      const contenedorAlquiler = document.querySelector("#indexAlquiler");
-      import {propiedades_venta,propiedades_alquiler} from "./assets/js/arrays.js";
-      import {propiedades}  from "./assets/js/cards.js";
-
-      propiedades(propiedades_venta,contenedorVenta);
-      propiedades(propiedades_alquiler,contenedorAlquiler);
-    </script>
-  </body>
+    <script src="./assets/js/script.js"></script>
+</body>
 </html>
