@@ -2,34 +2,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <link rel="stylesheet" href="./assets/css/styles.css">
-    <title>Desafío 5 - Todo List</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
-    
-    <div class="todo-list">
+        <h1>Conversor de monedas Nacional</h1>
+        <div class="container">
+            <h2>Pesos CLP</h2>
+            <input type="number" id="valor" placeholder="Ingrese el monto en CLP" class="input-monto">
 
-        <h2>Todo List</h2>
-        <div class="input-group">
-            <input type="text" id="nuevoTarea" placeholder="Nueva tarea">
-            <button id="agregarTarea">Agregar</button>
+            <label for="moneda">Moneda a convertir:</label>
+            <select id="moneda">
+                <option value="dolar">USD</option>
+                <option value="euro">EUR</option>
+            </select>
+            <button id="btn-buscar">Buscar</button>
         </div>
-        <div class="cuentaTareas">
-            <p>Total: <span id="totalTareas">0</span></p>
-            <p>Realizadas: <span id="tareasRealizadas">0</span></p>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tarea</th>
-                    <th>Realizda</th>
-                    <th>Borrar</th>
-                </tr>
-            </thead>
-            <tbody id="listaTareas">
-            </tbody>
-        </table>
+           
+            <div id="resultado">...</div>
+
+         <div class="contenedorGrafico" id="graficoHistoricoContenedor">
+        <canvas id="myChart"></canvas>
     </div>
     <script src="./assets/js/script.js"></script>
 </body>

@@ -1,74 +1,69 @@
-const listaDeTareas = document.querySelector("#listaTareas")
-const tareaInput = document.querySelector("#nuevoTarea")
-const btnSumar = document.querySelector("#agregarTarea")
-const contarTareasTotal = document.querySelector("#totalTareas")
-const contarTareasRealizadas = document.querySelector("#tareasRealizadas")
+let estadoChart = null;
 
-let tareas = [
-  { id: 1, mision: "Llamar a mamá", realizada: false },
-  { id: 2, mision: "Comprar comestibles", realizada: true },
-  { id: 3, mision: "Preparar presentación", realizada: false }
-];
-
-function renderTareas(){
-    let html = ""
-    tareas.forEach((tarea, index) => {
-      html += 
-      `
-      <tr>
-          <td>${tarea.id}</td>
-          <td>${tarea.mision}</td>
-          <td>
-              <input type="checkbox" ${tarea.realizada ? 'checked' : ''} data-id="${tarea.id}">
-          </td>
-          <td>
-              <button onclick="borrar(${tarea.id})">X</button>
-          </td>
-      </tr>
-  `;
-    });
-    listaDeTareas.innerHTML = html;
-    actualizarConteo();
+const NombreMoneda = (moneda) => {
+    if (moneda === 'dolar') {
+        return '$';
+    } else if (moneda === 'euro') {
+        return '€';
     }
-
-    function actualizarConteo(){
-      contarTareasTotal.textContent = tareas.length;
-      const realizadas = tareas.filter(tarea => tarea.realizada).length;
-      contarTareasRealizadas.textContent = realizadas;
-      }
-
-
-btnSumar.addEventListener("click", () => {
-const nuevoTarea = tareaInput.value;
-tareas.push({id: Date.now(), mision: nuevoTarea, realizada: false});
-tareaInput.value = "";
-renderTareas();
-})
-
-
-listaDeTareas.addEventListener("change", (event) => {
-  if (event.target.type === 'checkbox') {
-      const id = Number(event.target.getAttribute("data-id"))
-      marcarRealizada(id, event.target.checked)
-  }
-})
-
-function borrar(id){
-    const index = tareas.findIndex((ele) => ele.id == id);
-    tareas.splice(index, 1);
-renderTareas();
+    return '';
 }
 
-function marcarRealizada(id, estado){
-  const tarea = tareas.find((ele) => ele.id === id)
-  if (tarea) {
-      tarea.realizada = estado
-      renderTareas()
-  }
+document.getElementById('btn-buscar').addEventListener('click', async () => {
+    const valor = document.getElementById('valor').value;
+    if (valor <= 0) {
+        document.getElementById('resultado').textContent = 'El monto debe ser un número mayor a "0".';
+        return;
+    }
+    const moneda = document.getElementById('moneda').value;
+
+    try {
+        const response = await fetch(`https://mindicador.cl/api`);
+        const data = await response.json();
+
+        const cambiarValor = data[moneda].valor;
+        const convertirValor = (valor / cambiarValor).toFixed(2);
+        const nombreDivisa = NombreMoneda(moneda);
+
+        document.getElementById('resultado').textContent = 
+            `Resultado: ${convertirValor} ${nombreDivisa}`;
+
+        renderMyChart(moneda);
+        
+        document.getElementById('graficoHistoricoContenedor').style.display = 'block';
+        
+    } catch (error) {
+        document.getElementById('resultado').textContent = 
+            'Error al obtener los datos. Intente nuevamente.';
+    }
+});
+
+async function renderMyChart(moneda) {
+    try {
+        const response = await fetch(`https://mindicador.cl/api/${moneda}`);
+        const data = await response.json();
+        const labels = data.serie.slice(0, 10).map(item => item.fecha.slice(0, 10));
+        const values = data.serie.slice(0, 10).map(item => item.valor);
+
+        if (estadoChart !== null) {
+            estadoChart.destroy();
+        }
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        estadoChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: `Historial de ${moneda.toUpperCase()}`,
+                    data: values,
+                    borderColor: 'rgb(725, 192, 192)',
+                    fill: false
+                }]
+            }
+        });
+        
+    } catch (error) {
+        console.error('Error al obtener el historial:', error);
+    }
 }
-
-renderTareas();
-
-
-
-
